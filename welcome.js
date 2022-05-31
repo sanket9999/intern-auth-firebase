@@ -1,5 +1,8 @@
 var db=firebase.firestore();
 const appbio = document.querySelector('#app-bio');
+const about = document.querySelector('#about');
+db.settings({ timestampsInSnapshots: true });
+
 // db.settings({ timestampsInSnapshots: true });
 
 firebase.auth().onAuthStateChanged((user)=>{
@@ -13,11 +16,25 @@ firebase.auth().onAuthStateChanged((user)=>{
         function applbio(doc){
             let li = document.createElement('li');
             let bio = document.createElement('span');
+            let about = document.createElement('span');
+
             li.setAttribute('data-id', doc.id);
+
             bio.textContent = doc.data().bio;
+            about.textContent = doc.data().about;
+
             li.appendChild(bio);
+            li.appendChild(about);
             appbio.appendChild(li);
         }
+        // function abouti(doc){
+        //     let li = document.createElement('li');
+        //     let about = document.createElement('span');
+        //     li.setAttribute('data-id', doc.id);
+        //     about.textContent = doc.data().about;
+        //     li.appendChild(about);
+        //     appbio.appendChild(li);
+        // }
         uid = user.uid;
         console.log(uid);
         db.collection('Application').doc(uid)
@@ -26,6 +43,7 @@ firebase.auth().onAuthStateChanged((user)=>{
             // snapshot.docs
             // .forEach(doc => {
                 applbio(snapshot);
+                //abouti(snapshot);
             // })
         })
         

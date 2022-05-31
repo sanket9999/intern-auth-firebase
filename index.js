@@ -33,6 +33,8 @@ function signUp(){
     const email = document.getElementById("email").value
     const password = document.getElementById("password").value
     const bio = document.getElementById("bio").value
+    const about = document.getElementById("about").value
+
     
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((cred) => {
@@ -41,10 +43,11 @@ function signUp(){
             
             email: email,
             password: password,
-            bio: bio
+            bio: bio,
+            about: about
         })
         .then(() => {
-          console.log('User added!');
+          console.log('User added!!!!');
         });
     })
 
