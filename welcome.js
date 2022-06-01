@@ -1,7 +1,6 @@
 var db=firebase.firestore();
-const appbio = document.querySelector('#app-bio');
-const about = document.querySelector('#about');
-db.settings({ timestampsInSnapshots: true });
+const appbio = document.querySelector('#app-about-bio');
+// db.settings({ timestampsInSnapshots: true });
 
 // db.settings({ timestampsInSnapshots: true });
 
@@ -10,31 +9,21 @@ firebase.auth().onAuthStateChanged((user)=>{
         location.replace("index.html")
     }else{
         document.getElementById("user").innerHTML = "Hello, "+user.email
-        //GetAllDataRealtime();
-        // getbio();
 
         function applbio(doc){
             let li = document.createElement('li');
-            let bio = document.createElement('span');
-            let about = document.createElement('span');
+            let bio = document.createElement('p');
+            let about = document.createElement('p');
 
             li.setAttribute('data-id', doc.id);
 
             bio.textContent = doc.data().bio;
             about.textContent = doc.data().about;
-
+            appbio.appendChild(li);
             li.appendChild(bio);
             li.appendChild(about);
-            appbio.appendChild(li);
+
         }
-        // function abouti(doc){
-        //     let li = document.createElement('li');
-        //     let about = document.createElement('span');
-        //     li.setAttribute('data-id', doc.id);
-        //     about.textContent = doc.data().about;
-        //     li.appendChild(about);
-        //     appbio.appendChild(li);
-        // }
         uid = user.uid;
         console.log(uid);
         db.collection('Application').doc(uid)
@@ -43,7 +32,6 @@ firebase.auth().onAuthStateChanged((user)=>{
             // snapshot.docs
             // .forEach(doc => {
                 applbio(snapshot);
-                //abouti(snapshot);
             // })
         })
         
